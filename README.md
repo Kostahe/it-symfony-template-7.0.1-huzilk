@@ -311,9 +311,16 @@ V případě, že entita ze které byla tabulka generována má relaci do jiné 
 input select, upravíme element takto. Příklad pro relaci do tabulky Cities
 
 ```sh
-->add('cities', EntityType::class, [  // misto typu elementu zapíšeme EntityType::class
-     'placeholder' => '--- Vyber mesto ---', 
-      'class' => Cities::class, // nazev entity kam je odkazováno
+            ->add('cities', EntityType::class, [
+                'placeholder' => '--- Vyber mesto ---',
+                'class' => Cities::class,
+                'choice_label' => 'name',
+                'required' => true,
+                'label' => 'Mesto',
+                'row_attr' => ['class' => 'form-group is-invalid',],
+                'label_attr' => ['class' => 'mt-4'],
+            //    'attr' => ['maxlength' => 4]
+            ])
 ```
 
 Vytvoření formuláře v Controleru v příslušné akci
