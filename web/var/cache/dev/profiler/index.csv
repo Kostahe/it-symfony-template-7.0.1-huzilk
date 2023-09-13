@@ -6,3 +6,6 @@ db5978,172.25.0.1,GET,http://localhost:83/,1676449910,,200
 8258b7,172.18.0.1,GET,http://localhost:83/,1677741669,,200
 9f6fd0,172.18.0.1,GET,http://localhost:83/favicon.ico,1677741676,94f4a9,404
 94f4a9,172.18.0.1,GET,http://localhost:83/favicon.ico,1677741676,,404
+3db839,172.20.0.1,GET,http://localhost:83/,1694589839,,200
+abf8eb,172.20.0.1,GET,http://localhost:83/favicon.ico,1694589840,142aa8,404
+142aa8,172.20.0.1,GET,http://localhost:83/favicon.ico,1694589840,,404
