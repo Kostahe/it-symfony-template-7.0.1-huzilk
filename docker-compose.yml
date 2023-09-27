@@ -6,7 +6,7 @@ volumes:
 
 services:
   symfony_web:
-    image: symfony-apache-php82
+    image: symfony-apache-php83
     container_name: symfony_web
     hostname: "symfony_web.ssemi.cz"
     build:
