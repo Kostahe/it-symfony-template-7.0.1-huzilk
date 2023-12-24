@@ -87,11 +87,11 @@ routa.
 
 ```sh
      /**
-     * @Route("/form-add/{id}", defaults={"id" = null}, name="homepage_form_add") 
      * @param Request $request
      * @param ManagerRegistry $doctrine
      * @return Response
      */
+         #[Route('/form-add/{id}', defaults={"id" = null}, name="homepage_default")]
          public function formAdd(string $id = null, Request $request, ManagerRegistry $doctrine): Response
     {
 ```
