@@ -22,8 +22,8 @@ class HomepageController extends BaseController
 
     /**
      * @return Response
-     * @Route("/", name="homepage_default")
      */
+    #[Route('/', name: 'homepage_default')]
     public function default(): Response
     {
 
