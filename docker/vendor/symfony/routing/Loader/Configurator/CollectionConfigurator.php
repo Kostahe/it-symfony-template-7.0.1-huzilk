@@ -43,7 +43,7 @@ class CollectionConfigurator
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
-    public function __wakeup()
+    public function __wakeup(): void
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
     }
@@ -113,5 +113,13 @@ class CollectionConfigurator
         $this->host = $host;
 
         return $this;
+    }
+
+    /**
+     * This method overrides the one from LocalizedRouteTrait.
+     */
+    private function createRoute(string $path): Route
+    {
+        return (clone $this->route)->setPath($path);
     }
 }

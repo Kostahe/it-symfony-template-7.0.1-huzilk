@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
  *
  * @author Alexandre Daubois <alex.daubois@gmail.com>
  */
-final class BackedEnumNormalizer implements NormalizerInterface, DenormalizerInterface, CacheableSupportsMethodInterface
+final class BackedEnumNormalizer implements NormalizerInterface, DenormalizerInterface
 {
     /**
      * If true, will denormalize any invalid value into null.
@@ -77,7 +77,7 @@ final class BackedEnumNormalizer implements NormalizerInterface, DenormalizerInt
             return $type::from($data);
         } catch (\ValueError $e) {
             if (isset($context['has_constructor'])) {
-                throw new InvalidArgumentException('The data must belong to a backed enumeration of type '.$type);
+                throw new InvalidArgumentException('The data must belong to a backed enumeration of type '.$type, 0, $e);
             }
 
             throw NotNormalizableValueException::createForUnexpectedDataType('The data must belong to a backed enumeration of type '.$type, $data, [$type], $context['deserialization_path'] ?? null, true, 0, $e);
@@ -87,15 +87,5 @@ final class BackedEnumNormalizer implements NormalizerInterface, DenormalizerInt
     public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
     {
         return is_subclass_of($type, \BackedEnum::class);
-    }
-
-    /**
-     * @deprecated since Symfony 6.3, use "getSupportedTypes()" instead
-     */
-    public function hasCacheableSupportsMethod(): bool
-    {
-        trigger_deprecation('symfony/serializer', '6.3', 'The "%s()" method is deprecated, use "getSupportedTypes()" instead.', __METHOD__);
-
-        return true;
     }
 }

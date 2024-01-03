@@ -11,12 +11,9 @@
 
 namespace Symfony\Component\Validator\Constraints;
 
-use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
+use Symfony\Component\Validator\Constraint;
 
 /**
- * @Annotation
- * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
- *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 #[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
@@ -30,22 +27,18 @@ class Collection extends Composite
         self::NO_SUCH_FIELD_ERROR => 'NO_SUCH_FIELD_ERROR',
     ];
 
-    /**
-     * @deprecated since Symfony 6.1, use const ERROR_NAMES instead
-     */
-    protected static $errorNames = self::ERROR_NAMES;
+    public array $fields = [];
+    public bool $allowExtraFields = false;
+    public bool $allowMissingFields = false;
+    public string $extraFieldsMessage = 'This field was not expected.';
+    public string $missingFieldsMessage = 'This field is missing.';
 
-    public $fields = [];
-    public $allowExtraFields = false;
-    public $allowMissingFields = false;
-    public $extraFieldsMessage = 'This field was not expected.';
-    public $missingFieldsMessage = 'This field is missing.';
-
-    public function __construct(mixed $fields = null, array $groups = null, mixed $payload = null, bool $allowExtraFields = null, bool $allowMissingFields = null, string $extraFieldsMessage = null, string $missingFieldsMessage = null)
+    public function __construct(array $fields = null, array $groups = null, mixed $payload = null, bool $allowExtraFields = null, bool $allowMissingFields = null, string $extraFieldsMessage = null, string $missingFieldsMessage = null)
     {
-        // no known options set? $fields is the fields array
         if (\is_array($fields)
-            && !array_intersect(array_keys($fields), ['groups', 'fields', 'allowExtraFields', 'allowMissingFields', 'extraFieldsMessage', 'missingFieldsMessage'])) {
+            && (($firstField = reset($fields)) instanceof Constraint
+                || ($firstField[0] ?? null) instanceof Constraint
+            )) {
             $fields = ['fields' => $fields];
         }
 
@@ -57,16 +50,9 @@ class Collection extends Composite
         $this->missingFieldsMessage = $missingFieldsMessage ?? $this->missingFieldsMessage;
     }
 
-    /**
-     * @return void
-     */
-    protected function initializeNestedConstraints()
+    protected function initializeNestedConstraints(): void
     {
         parent::initializeNestedConstraints();
-
-        if (!\is_array($this->fields)) {
-            throw new ConstraintDefinitionException(sprintf('The option "fields" is expected to be an array in constraint "%s".', __CLASS__));
-        }
 
         foreach ($this->fields as $fieldName => $field) {
             // the XmlFileLoader and YamlFileLoader pass the field Optional
