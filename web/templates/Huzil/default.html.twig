@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            {{ title }}
+        </div>
+    </div>
+    <div class="row">
+        <a href={{ path('delete') }}>delete</a>
+        <a href={{ path('detail') }}>detail</a>
+        <a href={{ path('edit') }}>edit</a>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+{% block javascripts %}{% endblock %}
