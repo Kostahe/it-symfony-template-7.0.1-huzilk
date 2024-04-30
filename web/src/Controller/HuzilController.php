@@ -19,6 +19,9 @@ class HuzilController extends BaseController
         return $this->render("Huzil/default.html.twig", ["title" => $title]);
     }
 
+    /**
+     * @return Response
+     */
     #[Route('/huzil/detail', name: 'detail')]
     public function detail(): Response
     {
@@ -26,6 +29,9 @@ class HuzilController extends BaseController
         return $this->render("Huzil/detail.html.twig", ["title" => $title]);
     }
 
+    /**
+     * @return Response
+     */
     #[Route('/huzil/delete', name: 'delete')]
     public function delete(): Response
     {
@@ -33,10 +39,13 @@ class HuzilController extends BaseController
         return $this->render("Huzil/delete.html.twig", ["title" => $title]);
     }
 
+    /**
+     * @return Response
+     */
     #[Route('/huzil/edit', name: 'edit')]
     public function edit(): Response
     {
-        $title = "Homepage delete";
+        $title = "Homepage edit";
         return $this->render("Huzil/edit.html.twig", ["title" => $title]);
     }
 }
