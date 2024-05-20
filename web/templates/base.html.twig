@@ -4,13 +4,22 @@
     <meta charset="utf-8">
     <title>Symfony template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>
-    </script>
+    <link rel="stylesheet" href="{{ url("homepage_default") }}layouts/lux/css/bootstrap.css">
+    <link rel="stylesheet" href="{{ url("homepage_default") }}layouts/lux/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url("homepage_default") }}layouts/lux/css/custom.min.css">
+    <link rel="stylesheet" href="{{ url("homepage_default") }}layouts/lux/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url("homepage_default") }}layouts/lux/css/prism-okaidia.css">
 </head>
 <body>
-    <div class="bs-docs-section clearfix">
-        {% block body %}
-        {% endblock %}
-    </div>
+<div class="bs-docs-section clearfix">
+    {% include "navbar.html.twig" %}
+    {% block body %}
+    {% endblock %}
+    {% include "footer.html.twig" %}
+</div>
+<script src="{{ url("homepage_default") }}layouts/lux/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url("homepage_default") }}layouts/lux/js/custom.js"></script>
+<script src="{{ url("homepage_default") }}layouts/lux/js/prism.js"></script>
 </body>
 </html>
+
